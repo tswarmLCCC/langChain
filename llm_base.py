@@ -1,4 +1,3 @@
-
 from langchain_ollama import ChatOllama
 
 MODEL_NAME = "deepseek-r1:8b"

@@ -1,11 +1,13 @@
 import os
-from langchain_community.chat_models import ChatOllama
+#from langchain_community.chat_models import ChatOllama
+import utils
+import llm_base
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage, SystemMessage
 
 # --- Setup ---
-MODEL_NAME = "llama3.2:latest"
+#MODEL_NAME = "llama3.2:latest"
 MAX_TURNS = 4
 
 # --- 1. Define the Agents ---
@@ -44,7 +46,11 @@ class DebateAgent:
 
 # --- 2. Initialize Model and Agents ---
 print("Initializing ChatOllama model...")
-llm = ChatOllama(model=MODEL_NAME, temperature=0.7)
+#llm = ChatOllama(model=MODEL_NAME, temperature=0.7)
+
+llm_base_instance = llm_base.LLMBase()
+llm = llm_base_instance.get_llm()
+print("Initialized ChatOllama model for debate.", llm)
 
 print("Creating agents...")
 debate_topic = "Is social media more harmful or beneficial for society?"
@@ -76,7 +82,7 @@ print(f"Moderator: {current_statement}\n")
 for turn in range(MAX_TURNS):
     # Agent Pro's turn
     response_pro = agent_pro.invoke(current_statement)
-    print(f"{agent_pro.name}: {response_pro}\n")
+    print(f"{utils.GREEN}{agent_pro.name}: {response_pro}\n{utils.RESET}")
     
     # This becomes the input for the next agent
     current_statement = response_pro
