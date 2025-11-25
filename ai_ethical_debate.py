@@ -13,6 +13,7 @@ from langchain_core.runnables import RunnablePassthrough
 
 # --- Setup ---
 MODEL_NAME = "llama3.2:latest"
+MODEL_NAME = "deepseek-r1:8b"
 
 LLM_HOST = "http://localhost:11434"
 #LLM_HOST = "http://192.168.1.149:11434"
