@@ -2,7 +2,7 @@
 from langchain_ollama import ChatOllama
 
 MODEL_NAME = "deepseek-r1:8b"
-
+BASE_URL = "http://192.168.1.149:11434"
 
 class LLMBase:
     llm = None
@@ -11,12 +11,16 @@ class LLMBase:
             self.initialize_llm()
 
     # You must add base_url here, otherwise it defaults to localhost
-    def initialize_llm(self):
+    def initialize_llm(self, temperature: float = 0.7):
         self.llm = ChatOllama(
             model=MODEL_NAME,
-            base_url="http://192.168.1.149:11434"
+            base_url=BASE_URL  #"http://192.168.1.149:11434",
+            , temperature=temperature
         )
     
+    def get_llm(self):
+        return self.llm
+
     def invoke(self, prompt: str):
         response = self.llm.invoke(prompt)
         return response
@@ -27,7 +31,7 @@ class LLMBase:
 
 if __name__ == "__main__":
     llm_base = LLMBase()
-    
+
     response = llm_base.invoke(prompt="Hello world")
     print("Test LLM Response:", response)
 

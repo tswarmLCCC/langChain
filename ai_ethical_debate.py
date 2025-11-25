@@ -6,8 +6,7 @@ from langchain_community.chat_models import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-
-
+import llm_base
 
 
 
@@ -57,7 +56,9 @@ Your first argument should state your position on the dilemma.
 """
 
 # --- Debate Setup ---
-llm = ChatOllama(model=MODEL_NAME, temperature=0.7, host=LLM_HOST)
+#llm = ChatOllama(model=MODEL_NAME, temperature=0.7, host=LLM_HOST)
+llm_base_instance = llm_base.LLMBase()
+llm = llm_base_instance.get_llm()
 print("Initialized ChatOllama model for debate.", llm)
 
 
