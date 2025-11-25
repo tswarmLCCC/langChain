@@ -7,8 +7,17 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
+
+
+
+
 # --- Setup ---
 MODEL_NAME = "llama3.2:latest"
+MODEL_NAME = "deepseek-r1:8b"
+
+LLM_HOST = "http://localhost:11434"
+LLM_HOST = "http://192.168.1.149:11434"
+#LLM_HOST = os.getenv("LLM_HOST", LLM_HOST)
 
 # Define the ethical dilemma
 dilemma = """
@@ -48,7 +57,9 @@ Your first argument should state your position on the dilemma.
 """
 
 # --- Debate Setup ---
-llm = ChatOllama(model=MODEL_NAME, temperature=0.7)
+llm = ChatOllama(model=MODEL_NAME, temperature=0.7, host=LLM_HOST)
+print("Initialized ChatOllama model for debate.", llm)
+
 
 # The debate chain for each agent
 def create_debate_chain(system_prompt):
